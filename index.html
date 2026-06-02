@@ -2856,3 +2856,40 @@ Somos tu Growth Partner.</h2>
 
 </body>
 </html>
+        b.style.width = '100%';
+        dest.appendChild(b);
+        createScriptOnce('//www.instagram.com/embed.js');
+        if(window.instgrm && instgrm.Embeds && typeof instgrm.Embeds.process === 'function'){
+          try{ instgrm.Embeds.process(); }catch(e){}
+        }
+
+      } else if(/youtube\.com|youtu\.be/.test(url)){
+        var vid = '';
+        var y = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);
+        if(y) vid = y[1];
+        var ifr = document.createElement('iframe');
+        ifr.width = '100%'; ifr.height = '100%'; ifr.frameBorder = '0';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        ifr.allowFullscreen = true;
+        ifr.src = vid ? ('https://www.youtube.com/embed/' + vid + '?rel=0&modestbranding=1') : url;
+        dest.appendChild(ifr);
+
+      } else {
+        var ifr2 = document.createElement('iframe');
+        ifr2.width='100%'; ifr2.height='100%'; ifr2.frameBorder='0'; ifr2.src = url;
+        dest.appendChild(ifr2);
+      }
+    }
+
+    function init(){
+      var nodes = document.querySelectorAll('.case-video-placeholder[data-video-url], .video-embed-area[data-video-url]');
+      if(!nodes || nodes.length===0) return;
+      nodes.forEach(function(n){ embedOne(n); });
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+  </script>
+
+</body>
+</html>
